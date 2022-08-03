@@ -1,0 +1,168 @@
+// Colors
+@backgroundColor: #000000;
+@headColor: #ff8cb2;
+@shadowColor: #2f2f2f;
+@eyeColor: black;
+@eyeShadeColor: white;
+@blushColor: #ff4a86;
+@mouthColor: black;
+
+// Sizes
+@headWidth: 70vmin;
+@headHeight: 50vmin;
+@shadowWidth: 70vmin;
+@shadowHeight: 20vmin;
+@eyeSize: 10vmin;
+@blushWidth: 15vmin;
+@blushHeight: 5vmin;
+@mouthWidth: 25vmin;
+@mouthHeight: 7vmin;
+@mouthSize: 1.5vmin;
+@jumpSize: 10vmin;
+@jumpHeadWidth: @headWidth - 8vmin;
+@jumpHeadHeight: @headHeight + 3vmin;
+@jumpShadowWidth: @shadowWidth / 1.2;
+@jumpShadowHeight: @shadowHeight / 1.2;
+
+// CSS Elements
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: @backgroundColor;
+}
+
+.head {
+  background: @headColor;
+  width: @headWidth;
+  height: @headHeight;
+  position: absolute;
+  top: calc(~"50% -" (@headHeight / 2));
+  left: calc(~"50% -" (@headWidth / 2));
+  z-index: 2;
+  border-radius: ~"90% 90% 80% 80% / 120% 120% 60% 60%";
+  animation: monster 1s infinite;
+  &:after {
+    content: "";
+    background: @headColor + #151515;
+    width: 25%;
+    height: 20%;
+    position: absolute;
+    top: 18%;
+    right: 15%;
+    border-radius: 100%;
+    transform: rotate(30deg);
+  }
+  & > .eyes {
+    width: 100%;
+    height: @eyeSize;
+    position: absolute;
+    top: 45%;
+    & > .eye {
+      background: @eyeColor;
+      width: @eyeSize;
+      height: @eyeSize;
+      border-radius: 100%;
+      position: absolute;
+      &:after {
+        content: "";
+        background: @eyeShadeColor;
+        width: @eyeSize / 4;
+        height: @eyeSize / 4;
+        position: absolute;
+        top: 20%;
+        right: 20%;
+        border-radius: 100%;
+      }
+      &.left {
+        left: 25%;
+      }
+      &.right {
+        right: 25%;
+      }
+    }
+  }
+  > .blushes {
+    width: 100%;
+    height: @eyeSize;
+    position: absolute;
+    top: 65%;
+    & > .blush {
+      background: @blushColor;
+      width: @blushWidth;
+      height: @blushHeight;
+      border-radius: 100%;
+      position: absolute;
+      &.left {
+        left: 5%;
+      }
+      &.right {
+        right: 5%;
+      }
+    }
+  }
+  .mouth {
+    width: @mouthWidth;
+    height: @mouthHeight;
+    position: absolute;
+    bottom: 10%;
+    left: calc(~"50% -" (@mouthWidth / 2));
+    & > .lip {
+      width: calc((@mouthWidth / 2) ~"-" (@mouthSize * 1.5));
+      height: calc(@mouthHeight ~"-" @mouthSize);
+      border: solid @mouthSize @mouthColor;
+      border-top: none;
+      position: absolute;
+      border-radius: ~"0 0 100% 100% / 0 0 180% 180%";
+      &.right {
+        right: 0;
+      }
+    }
+  }
+}
+
+.shadow {
+  background: @shadowColor;
+  width: @shadowWidth;
+  height: @shadowHeight;
+  position: absolute;
+  top: calc(~"50% -" (@shadowHeight / 2) ~"+" (@headHeight / 2));
+  left: calc(~"50% -" (@shadowWidth / 2));
+  z-index: 1;
+  border-radius: 100%;
+  animation: shadow 1s infinite;
+}
+
+@keyframes monster {
+  0% {
+    width: @headWidth;
+    height: @headHeight;
+    left: calc(~"50% -" (@headWidth / 2));
+    border-radius: ~"90% 90% 80% 80% / 120% 120% 60% 60%";
+  }
+  50% {
+    width: @jumpHeadWidth;
+    height: @jumpHeadHeight;
+    margin-top: -@jumpSize;
+    top: calc(~"50% -" (@jumpHeadHeight / 2));
+    left: calc(~"50% -" (@jumpHeadWidth / 2));
+    border-radius: ~"100% 100% 80% 80% / 150% 150% 60% 60%";
+  }
+}
+
+@keyframes shadow {
+  0% {
+    width: @shadowWidth;
+    height: @shadowHeight;
+    top: calc(~"50% -" (@shadowHeight / 2) ~"+" (@headHeight / 2));
+    left: calc(~"50% -" (@shadowWidth / 2));
+  }
+  50% {
+    width: @jumpShadowWidth;
+    height: @jumpShadowHeight;
+    top: calc(~"50% -" (@jumpShadowHeight / 2) ~"+" (@headHeight / 2));
+    left: calc(~"50% -" (@jumpShadowWidth / 2));
+  }
+}
